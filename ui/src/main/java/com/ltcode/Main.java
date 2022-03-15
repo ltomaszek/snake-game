@@ -12,8 +12,9 @@ public class Main {
         int SNAKE_LENGTH = 3;
         PlayerInfo[] playersInfo = {
                 new PlayerInfo("Julia", PlayerType.HUMAN),
-                new PlayerInfo("Lukas", PlayerType.HUMAN)
-                //new PlayerInfo("Comp 1", PlayerType.COMPUTER)
+                new PlayerInfo("Lukas", PlayerType.HUMAN),
+                new PlayerInfo("Comp 1", PlayerType.COMPUTER),
+                new PlayerInfo("Comp 2", PlayerType.COMPUTER)
         };
 
         //Game game = new SinglePlayerGame("Muster Player", SNAKE_LENGTH, 20, 20);

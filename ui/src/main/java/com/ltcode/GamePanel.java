@@ -5,6 +5,7 @@ import com.ltcode.control.MultiPlayerKeyManager;
 import com.ltcode.control.SinglePlayerKeyManager;
 import com.ltcode.game.Game;
 import com.ltcode.settings.PlayerSettings;
+import com.ltcode.util.Position;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,13 +17,15 @@ import java.util.Random;
 
 public class GamePanel extends JPanel implements ActionListener {
 
-    final int SCREEN_WIDTH;
-    final int SCREEN_HEIGHT;
-    final int UNIT_SIZE = 30;
-    final int DELAY = 75;
+    private final int SCREEN_WIDTH;
+    private final int SCREEN_HEIGHT;
+    private final int UNIT_SIZE = 30;
+    private final int DELAY = 75;
 
-    private Game game;
-    private KeyManager keyManager;
+    private final Game game;
+    private final KeyManager keyManager;
+
+    private final Position[] scorePosition;
 
     Timer timer;
     Random random;
@@ -48,7 +51,18 @@ public class GamePanel extends JPanel implements ActionListener {
 
         this.game = game;
 
+        this.scorePosition = new Position[game.getNumberOfPlayers()];
+        this.initScorePosition();
+
         this.startGame();
+    }
+
+    private void initScorePosition() {
+        for (int i = 0; i < game.getNumberOfPlayers(); i++) {
+            Position gamePosition = game.getPlayer(i).getStartPosition();
+            Position windowPosition = new Position(gamePosition.getX() * UNIT_SIZE, gamePosition.getY() * UNIT_SIZE + UNIT_SIZE);
+            scorePosition[i] = windowPosition;
+        }
     }
 
     public void startGame() {
@@ -119,9 +133,11 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     private void drawScore(Graphics g) {
-        g.setColor(Color.WHITE);
-        g.setFont(new Font("TimesRoman", Font.BOLD, 50));
-        g.drawString("" + game.getPlayer().getScore(), 0, 50);
+        for (int i = 0; i < game.getNumberOfPlayers(); i++) {
+            g.setColor(PlayerSettings.SNAKE_HEAD_COLOR[i]);
+            g.setFont(new Font("TimesRoman", Font.BOLD, UNIT_SIZE));
+            g.drawString("" + game.getPlayer(i).getScore(), scorePosition[i].getX(), scorePosition[i].getY());
+        }
     }
 
     // == INNER CLASSES ==

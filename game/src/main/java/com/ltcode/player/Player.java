@@ -1,6 +1,7 @@
 package com.ltcode.player;
 
 import com.ltcode.snake.Snake;
+import com.ltcode.util.Position;
 
 public interface Player {
 
@@ -17,4 +18,6 @@ public interface Player {
     void resetSnake();
 
     void resetScore();
+
+    Position getStartPosition();
 }

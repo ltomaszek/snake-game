@@ -49,6 +49,12 @@ public class PlayerImpl implements Player {
     }
 
     @Override
+    public Position getStartPosition() {
+        return startingSnake.getHeadPosition();
+    }
+
+
+    @Override
     public String toString() {
         return "PlayerImpl{" +
                 "name='" + name + '\'' +
